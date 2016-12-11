@@ -18,6 +18,7 @@ class CreateSensorTable extends Migration
             $table->string('type');
             $table->string('unit');
             $table->string('location');
+            $table->string('api_key');
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 感測器
  *
+ * @property integer id
  * @property string name
  * @property string type
  * @property string unit
@@ -20,7 +21,7 @@ class Sensor extends Model
 {
     /* @var array $fillable 可大量指派的屬性 */
     protected $fillable = [
-        'name', 'type', 'unit', 'location'
+        'name', 'type', 'unit', 'location', 'api_key'
     ];
 
     public function envdatas()

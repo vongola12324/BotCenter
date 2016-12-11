@@ -40,6 +40,18 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     });
     //Dashboard
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    //Sensor
+    Route::resource('sensor', 'SensorController', [
+        'except' => [
+            'show'
+        ]
+    ]);
+    //感測器資料
+    Route::group(['prefix' => 'envdata'], function () {
+        Route::get('/', 'EnvDataController@index')->name('envdata');
+        Route::post('clear', 'EnvDataController@clear')->name('envdata.clear');
+        Route::delete('destroy', 'EnvDataController@destroy')->name('envdata.destroy');
+    });
 });
 
 //會員系統
@@ -64,6 +76,12 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::get('resend', 'AuthController@resendConfirmMailPage')->name('auth.resend-confirm-mail');
     Route::post('resend', 'AuthController@resendConfirmMail')->name('auth.resend-confirm-mail');
     Route::get('confirm/{confirmCode}', 'AuthController@emailConfirm')->name('auth.confirm');
+});
+
+// API
+Route::group(['prefix' => 'api'], function() {
+    Route::get('data', 'APIController@getData');
+    Route::post('data', 'APIController@setData');
 });
 
 //首頁

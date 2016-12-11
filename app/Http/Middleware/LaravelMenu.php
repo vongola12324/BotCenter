@@ -50,6 +50,10 @@ class LaravelMenu
                         $adminMenu->add('角色管理', ['route' => 'role.index']);
                     }
 
+                    if (Entrust::can('sensor.manage')) {
+                        $adminMenu->add('感測器管理', ['route' => 'sensor.index']);
+                    }
+
                     if (Entrust::can('log-viewer.access')) {
                         $adminMenu->add(
                             '記錄檢視器 <i class="external icon"></i>',

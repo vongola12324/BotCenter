@@ -14,7 +14,7 @@ class CreateEnvdataTable extends Migration
     {
         Schema::create('envdata', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sensor_id');
+            $table->integer('sensor_id')->unsigned();
             $table->string('data');
             $table->string('ip');
             $table->timestamps();

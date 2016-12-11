@@ -20,8 +20,11 @@ class EnvData extends Model
 {
     /* @var array $fillable 可大量指派的屬性 */
     protected $fillable = [
-        'data', 'ip'
+        'data', 'ip', 'sensor_id'
     ];
+
+    protected $table = 'envdata';
+
 
     public function sensor()
     {

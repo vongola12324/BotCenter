@@ -226,6 +226,7 @@ return [
         'SemanticForm' => Laravolt\SemanticForm\Facade::class,
         'Menu'         => Lavary\Menu\Facade::class,
         'Gravatar'     => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'Uuid'         => Webpatser\Uuid\Uuid::class,
     ],
 
 ];

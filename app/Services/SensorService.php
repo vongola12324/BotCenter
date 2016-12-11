@@ -4,7 +4,7 @@ namespace App\Services;
 
 class SensorService{
 
-    protected $support = [
+    protected static $support = [
         "Temperature" => ["℃", "℉"],
         "Humidity" => ["g/m^2", "%"],
         "CO" => ["ppm", "mg", "mg/kWh"],
@@ -12,19 +12,31 @@ class SensorService{
         "Infrared" => [""]
     ];
 
-    public function isSupport($device_type) {
-        return in_array($device_type, array_keys($this->support));
+    public static function isSupport($device_type) {
+        return in_array($device_type, array_keys(static::$support));
     }
 
-    public function getUnit($device_type) {
-        return $this->support[$device_type];
+    public static function getUnits() {
+        // FIXME: may not return all units
+        // return static::$support[$device_type];
+        $units = [];
+        foreach (static::$support as $device) {
+            $units = array_merge($units, $device);
+        }
+        return $units;
+
     }
 
-    public function isAllowed($device_type, $unit) {
-        return $this->isSupport($device_type) and in_array($unit, $this->getUnit($device_type));
+    public static function isAllowed($device_type, $unit) {
+//        return static::isSupport($device_type) and in_array($unit, static::getUnits($device_type));
+        return static::isSupport($device_type);
     }
 
-    public function getList() {
-        return $this->support;
+    public static function getDevices() {
+        return array_keys(static::$support);
+    }
+
+    public static function getList() {
+        return static::$support;
     }
 }
