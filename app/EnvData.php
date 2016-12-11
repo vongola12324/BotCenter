@@ -23,7 +23,7 @@ class EnvData extends Model
         'data', 'ip', 'sensor_id'
     ];
 
-    protected $table = 'envdata';
+    protected $table = 'envdatas';
 
 
     public function sensor()

@@ -12,7 +12,7 @@ class CreateEnvdataTable extends Migration
      */
     public function up()
     {
-        Schema::create('envdata', function (Blueprint $table) {
+        Schema::create('envdatas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('sensor_id')->unsigned();
             $table->string('data');
