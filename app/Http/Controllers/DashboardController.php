@@ -11,6 +11,7 @@ class DashboardController extends Controller
     public function index()
     {
         $hasSensor = Sensor::count();
+        $temperature = null;
         if ($hasSensor) {
             $sensor = Sensor::where('type', 'Temperature')->first();
             $temperatures = EnvData::where('sensor_id', $sensor->id)->take(180)->get();
@@ -20,7 +21,7 @@ class DashboardController extends Controller
             }
             return view('index', compact(['hasSensor', 'temperature']));
         } else {
-            return view('index', compact(['hasSensor']));
+            return view('index', compact(['hasSensor', 'temperature']));
         }
     }
 }
