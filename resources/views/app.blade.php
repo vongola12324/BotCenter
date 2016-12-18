@@ -9,7 +9,7 @@
     <title>@yield('title')::{{ config('site.name') }}</title>
 
     {{-- CSS --}}
-    {!! Html::style('semantic/semantic.min.css') !!}
+    {!! Html::style('//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css') !!}
     <style>
@@ -54,7 +54,7 @@
 
 {{-- Javascript --}}
 {!! Html::script('//code.jquery.com/jquery-3.1.0.min.js') !!}
-{!! Html::script('semantic/semantic.min.js') !!}
+{!! Html::script('//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js') !!}
 {!! Html::script('//cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js') !!}
 <script>
     $(document).ready(function () {
