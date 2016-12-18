@@ -24,6 +24,9 @@ class Sensor extends Model
         'name', 'type', 'unit', 'location', 'api_key'
     ];
 
+    /** @var int $perPage 分頁時的每頁數量 */
+    protected $perPage = 10;
+
     public function envdatas()
     {
         return $this->hasMany(EnvData::class);
