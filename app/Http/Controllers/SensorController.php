@@ -28,11 +28,8 @@ class SensorController extends Controller
      */
     public function create()
     {
-        $devices = SensorService::getDevices();
-        $units = SensorService::getUnits();
-
-//        dd($units);
-        return view('sensor.create-or-edit', compact(['devices', 'units']));
+        $devices = SensorService::getList();
+        return view('sensor.create-or-edit', compact('devices'));
     }
 
     /**
@@ -53,10 +50,9 @@ class SensorController extends Controller
         $sensor = Sensor::create([
             'name'     => $request->get('name'),
             'type'     => SensorService::getDevices()[$request->get('type')],
-            'unit'     => SensorService::getUnits()[$request->get('unit')],
+            'unit'     => SensorService::getUnits(SensorService::getDevices()[$request->get('type')])[$request->get('unit')],
             'location' => $request->get('location'),
-            'api_key'  => Uuid::generate(4)
-            ,
+            'api_key'  => base64_encode(Uuid::generate(4)),
         ]);
 
         if ($sensor) {
@@ -87,9 +83,8 @@ class SensorController extends Controller
      */
     public function edit(Sensor $sensor)
     {
-        $devices = SensorService::getDevices();
-        $units = SensorService::getUnits();
-        return view('sensor.create-or-edit', compact(['sensor', 'devices', 'units']));
+        $devices = SensorService::getList();
+        return view('sensor.create-or-edit', compact(['sensor', 'devices']));
     }
 
     /**

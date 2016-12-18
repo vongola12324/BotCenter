@@ -1,29 +1,71 @@
 @extends('app')
 
-@section('title', '首頁')
+@section('title', '儀錶板')
 
-@section('css')
-    <style>
-        .jumbotron {
-            text-align: center;
-            background: rgba(100, 100, 100, .6);
-            margin-top: 20vh;
-            padding-top: 40px;
-            border-radius: 20px;
-        }
-    </style>
-@endsection
 @section('content')
-    <div class="jumbotron">
-        <div class="ui translucent vertical center aligned segment">
-            <h1 class="ui inverted center aligned icon header">
-                <i class="circular inverted red massive marker icon"></i>
-                {{ config('site.name') }}
-                <p class="ui sub header">
-                    逢甲大學黑客社
-                </p>
-            </h1>
-            <a href="javascript:void(0)" class="ui large inverted red center aligned button" style="margin-top: 5vh;">GO!</a>
-        </div>
+    <div class="ui container">
+        <h1 class="ui center aligned teal header">環境資料</h1>
+        @if($hasSensor)
+{{--            {{ dd($temperature) }}--}}
+            @if($temperature)
+                <canvas id="LineChart" style="width:50%;"></canvas>
+            @endif
+        @else
+            <div class="ui warning icon message">
+                <i class="warning sign icon"></i>
+                <div class="content">
+                    <div class="header">
+                        系統中似乎沒有任何感測器或感測器都沒有回傳資料呢！
+                    </div>
+                    <p>到 管理選單 &gt; 感測器管理 去看一下感測器設定吧！ </p>
+                </div>
+            </div>
+        @endif
     </div>
+
+@endsection
+
+@section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script>
+      const temp = JSON.parse('{!! json_encode($temperature) !!}')
+      let label = [];
+      let datas = [];
+      for(let t in temp) {
+        label.push(t);
+        datas.push(temp[t]);
+      }
+      let data = {
+        labels: label,
+        datasets:[{
+          label: "Temperature",
+          lineTension: 0.1,
+          backgroundColor: "rgba(75,192,192,0.4)",
+          borderColor: "rgba(75,192,192,1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(75,192,192,1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data:datas,
+          spanGaps: false,
+          fill: false
+        }],
+      };
+      console.log(data);
+      const ctx = document.getElementById('LineChart');
+      let linehart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+      });
+
+    </script>
 @endsection

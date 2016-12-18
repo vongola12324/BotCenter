@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     ]);
     //感測器資料
     Route::group(['prefix' => 'envdata'], function () {
+        Route::post('/', 'EnvDataController@index')->name('envdata');
         Route::get('/', 'EnvDataController@index')->name('envdata');
         Route::post('clear', 'EnvDataController@clear')->name('envdata.clear');
         Route::delete('destroy', 'EnvDataController@destroy')->name('envdata.destroy');
@@ -88,3 +89,4 @@ Route::group(['prefix' => 'api'], function() {
 Route::get('/', function () {
     return redirect()->route('dashboard');
 })->name('index');
+

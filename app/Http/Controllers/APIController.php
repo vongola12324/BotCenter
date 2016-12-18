@@ -16,7 +16,7 @@ class APIController extends Controller
         $data = null;
 
         if ($request->get('data') && $request->get('token')) {
-            $sensor = Sensor::where('api_key' , $request->get('token'))->first();
+            $sensor = Sensor::where('api_key' , base64_encode($request->get('token')))->first();
             if ($sensor) {
                 $data = EnvData::create([
                     'data' => $request->get('data'),

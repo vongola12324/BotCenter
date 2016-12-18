@@ -30,6 +30,6 @@ class CreateEnvdataTable extends Migration
      */
     public function down()
     {
-        Schema::drop('envdata');
+        Schema::drop('envdatas');
     }
 }

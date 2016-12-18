@@ -29,24 +29,31 @@
                     <small><i class="angle double right icon"></i>{{ $sensor->type }}/{{ $sensor->unit }}</small>
                 </td>
                 <td style="text-align: center">
-                    {{ $sensor->api_key }}
+                    {{ base64_decode($sensor->api_key) }}
                 </td>
                 <td class="four wide">
                     <a href="{{ route('sensor.edit', $sensor) }}" class="ui icon brown inverted button">
-                        <i class="edit icon"></i> 編輯感測器
+                        <i class="edit icon"></i> 編輯
                     </a>
-                    @unless($sensor->protection)
-                        {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => ['sensor.destroy', $sensor],
-                            'style' => 'display: inline',
-                            'onSubmit' => "return confirm('確定要刪除此感測器嗎？');"
-                        ]) !!}
-                        <button type="submit" class="ui icon red inverted button">
-                            <i class="trash icon"></i> 刪除感測器
-                        </button>
-                        {!! Form::close() !!}
-                    @endunless
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['envdata', 'token' => $sensor->api_key],
+                        'style' => 'display: inline',
+                    ]) !!}
+                    <button type="submit" class="ui icon green inverted button">
+                        <i class="search icon"></i> 檢視
+                    </button>
+                    {!! Form::close() !!}
+                    {!! Form::open([
+                        'method' => 'DELETE',
+                        'route' => ['sensor.destroy', $sensor],
+                        'style' => 'display: inline',
+                        'onSubmit' => "return confirm('確定要刪除此感測器嗎？');"
+                    ]) !!}
+                    <button type="submit" class="ui icon red inverted button">
+                        <i class="trash icon"></i> 刪除
+                    </button>
+                    {!! Form::close() !!}
                 </td>
             </tr>
         @endforeach

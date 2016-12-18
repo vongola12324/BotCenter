@@ -35,7 +35,8 @@
                     {{ $data->created_at }}
                 </td>
                 <td  class="three wide">
-                    {{ $data->sensor->name }}（{{ $data->sensor->type }}/{{ $data->sensor->location }}）
+                    {{ $data->sensor->name }}<br>
+                    <small><i class="angle double right icon"></i>{{ $data->sensor->type }}/{{ $data->sensor->location }}</small>
                 </td>
                 <td>
                     {{ $data->data }} {{ $data->sensor->unit }}

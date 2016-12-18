@@ -170,6 +170,8 @@ return [
         Recca0120\LaravelTracy\ServiceProvider::class,
         Lavary\Menu\ServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        Fx3costa\Laravelchartjs\Providers\ChartjsServiceProvider::class
+
     ],
 
     /*

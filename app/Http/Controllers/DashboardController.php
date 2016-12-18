@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\EnvData;
+use App\Sensor;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $hasSensor = Sensor::count();
+        if ($hasSensor) {
+            $sensor = Sensor::where('type', 'Temperature')->first();
+            $temperatures = EnvData::where('sensor_id', $sensor->id)->take(180)->get();
+            $temperature = [];
+            foreach($temperatures as $temp) {
+                $temperature = array_merge($temperature, [(string)$temp['created_at'] => $temp['data']]);
+            }
+            return view('index', compact(['hasSensor', 'temperature']));
+        } else {
+            return view('index', compact(['hasSensor']));
+        }
     }
 }

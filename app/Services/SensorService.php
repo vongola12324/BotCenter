@@ -16,15 +16,8 @@ class SensorService{
         return in_array($device_type, array_keys(static::$support));
     }
 
-    public static function getUnits() {
-        // FIXME: may not return all units
-        // return static::$support[$device_type];
-        $units = [];
-        foreach (static::$support as $device) {
-            $units = array_merge($units, $device);
-        }
-        return $units;
-
+    public static function getUnits($device_type) {
+        return static::$support[$device_type];
     }
 
     public static function isAllowed($device_type, $unit) {

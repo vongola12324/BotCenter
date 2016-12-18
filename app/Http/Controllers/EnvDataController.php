@@ -3,11 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\EnvData;
+use App\Sensor;
+use Illuminate\Http\Request;
 
 class EnvDataController extends Controller {
 
-    public function index() {
-        $datas = EnvData::with('sensor')->orderBy('created_at', 'desc')->paginate();
+    public function index(Request $request) {
+        $hasToken = $request->get('token') || false;
+        $hasSensor = false;
+        $sensor = null;
+        if ($hasToken) {
+            $sensor = Sensor::where('api_key', $request->get('token'))->first();
+            $hasSensor = $sensor || $hasSensor;
+        }
+        if ($hasToken && $hasSensor) {
+            $datas = EnvData::where('sensor_id', $sensor->id)->with('sensor')->orderBy('created_at', 'desc')->paginate();
+        } else {
+            $datas = EnvData::with('sensor')->orderBy('created_at', 'desc')->paginate();
+        }
         return view('sensor.data', compact('datas'));
     }
 

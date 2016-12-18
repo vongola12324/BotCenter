@@ -17,9 +17,12 @@
     @endif
     <div class="ui stacked segment">
         {!! SemanticForm::text('name')->label('感測器名稱')->placeholder('如：小白')->required() !!}
-        {!! SemanticForm::select('type', $devices)->label('感測器類型')->placeholder('說明此感測器之用途') !!}
-        {!! SemanticForm::select('unit', $units)->label('資料單位')->placeholder('說明此感測器之用途') !!}
-        {!! SemanticForm::text('location')->label('感測器位置')->placeholder('說明此感測器之用途') !!}
+        {!! SemanticForm::select('type', array_keys($devices))->label('感測器類型')->placeholder('選擇感測器之類型')->id('device_type')->required() !!}
+        {!! SemanticForm::select('unit', [])->label('資料單位')->placeholder('選擇感測器之單位')->id('device_unit')->required() !!}
+        {!! SemanticForm::text('location')->label('感測器位置')->placeholder('說明感測器之位置') !!}
+        @if($isEditMode)
+            {!! SemanticForm::text('api_key')->label('金鑰')->disable() !!}
+        @endif
 
         <div style="text-align: center">
             <a href="{{ route('sensor.index') }}" class="ui blue inverted icon button">
@@ -38,4 +41,23 @@
         </div>
     @endif
     {!! SemanticForm::close() !!}
+@endsection
+
+@section('js')
+    <script>
+        const devices = {!! json_encode($devices) !!};
+        const type = $('select#device_type');
+        const unit = $('select#device_unit');
+        $(function () {
+            type.change(function () {
+                let i = 0;
+                unit.find('option').remove();
+                for(let u of devices[type.find(":selected").text()]) {
+                  unit.append('<option value="' + i + '">' + u + '</option>');
+                  i++;
+                }
+                $('div.text:last').text('選擇感測器之單位');
+            });
+        });
+    </script>
 @endsection
