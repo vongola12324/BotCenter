@@ -7,7 +7,7 @@
         <h1 class="ui center aligned teal header">環境資料</h1>
         @if($hasSensor)
 {{--            {{ dd($temperature) }}--}}
-            @if($temperature)
+            @if(isset($temperature))
                 <canvas id="LineChart" style="width:50%;"></canvas>
             @endif
         @else
