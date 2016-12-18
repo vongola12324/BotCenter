@@ -61,7 +61,7 @@
     </table>
     <div class="ui raised red segment" style="margin-bottom: 20px">
         <h2 class="ui header">如何使用</h2>
-        <p>伺服器提供兩組API供感測器及其他裝置傳送、接收資料，這兩組API共用一個網址： {{ env('APP_URL').'/api/data' }} </p>
+        <p>伺服器提供兩組API供感測器及其他裝置傳送、接收資料，這兩組API共用一個網址： <code>{{ env('APP_URL').'/api/data' }}</code> </p>
         <h3 class="ui header">傳送資料</h3>
         <p>
             傳送資料時，請使用POST方法來傳送，伺服器只接受json格式，並且請確保json內容包含data及token兩個欄位。<br>
